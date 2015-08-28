@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.0//EN" "http://tuckey.org/res/dtds/urlrewrite3.0.dtd">
+<urlrewrite>
+	<!-- 此为示例，后面可以根据这个样式来定义伪静态 （“&amp;”相当于“&”，其余的就是正则了）--> 
+	<rule>
+		<note>
+			最新省市攻略（翻页）（此为注释）
+		</note>
+		<from>^/scenic/travel_([a-zA-Z0-9]+)_(.*)_([0-9]+).html$</from>
+		<to type="forward">scenic/travellist?proPy=$1&amp;cityPy=$2&amp;pageNo=$3</to>
+	</rule>
+	
+	<rule>
+		<note>
+			消息中心
+		</note>
+		<from>^/msg_([0-9]+).html$</from>
+		<to type="forward">/usercenter/messageCenter.action?searchParam[status]=$1</to>
+	</rule>
+</urlrewrite>
+

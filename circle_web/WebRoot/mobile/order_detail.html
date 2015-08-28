@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html ng-app="app" ng-controller="BusinessCtrl">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-title" content="团农">
+    <link rel="apple-touch-icon" href="../images/mobile/icon.jpg" />
+    <title></title>
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/mobile.css" rel="stylesheet" />
+    <script src="../js/common/jquery-1.7.2.min.js"></script>
+    <script src="../js/common/comm.js"></script>
+    <script src="../js/common/common.js"></script>
+    <script src="../js/common/angular.min.js"></script>
+    <script src="../js/mobile/order_detail.js"></script>
+
+</head>
+<body>
+    <div class="container-fluid cont">
+        <div class="order_detail">
+            <div class="tip row">订单详情</div>
+            <div class="show row">
+                <div class="col-xs-12 state">
+                    <div class="t">
+                        <span class="nor">状&nbsp;态&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="red" ng-show="order.payStatus==0">未支付</span><span class="red" ng-show="order.payStatus==1">已支付</span>
+                    </div>
+                </div>
+                <div class="col-xs-12"><span class="nor">订&nbsp;&nbsp;单&nbsp;&nbsp;号&nbsp;&nbsp;</span><span class="val">{{order.orderId}}</span></div>
+                <div class="col-xs-12"><span class="nor">下单时间&nbsp;&nbsp;</span><span class="val">{{order.orderTime|date:'yyyy-MM-dd HH:mm:ss'}}</span></div>
+                <div class="col-xs-12"><span class="nor">配送时间&nbsp;&nbsp;</span><span class="val">1天内</span></div>
+                <div class="col-xs-12"><span class="nor">支付方式&nbsp;&nbsp;</span><span class="val" ng-show="order.payType==6001">货到付款</span><span class="val" ng-show="order.payType==6002">在线支付</span></div>
+            </div>
+            <div class="show row">
+                <div class="col-xs-12">
+                    <div class="t">
+                        <span class="gray">费用明细</span>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="t">
+                        <div class="row">
+                            <div class="col-xs-6 l"><span class="nor">配&nbsp;&nbsp;送&nbsp;&nbsp;费</span></div>
+                            <div class="col-xs-6 r right"><span class="val ">￥0</span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 l"><span class="nor">优惠金额</span></div>
+                            <div class="col-xs-6 r right"><span class="val ">￥0</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="t">
+                        <div class="row" ng-repeat="orderDetail in order.orderDetailList">
+                            <div class="col-xs-6 l"><span class="nor">{{orderDetail.good_name}}</span></div>
+                            <div class="col-xs-3 r right" style="padding-right:0px;"><span class="val ">X{{orderDetail.buy_num}}</span></div>
+                            <div class="col-xs-3 r right"><span class="val ">￥{{orderDetail.total}}</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 total">
+                    <span class="nor">实付</span>&nbsp;&nbsp;<span class="red">￥{{order.orderAmount}}</span>
+                </div>
+            </div>
+            <div class="show row">
+                <div class="col-xs-12"><span class="nor">收&nbsp;&nbsp;货&nbsp;&nbsp;人&nbsp;&nbsp;</span><span class="val">{{order.receiveName}}&nbsp;&nbsp;&nbsp;&nbsp;{{order.receivePhone}}</span></div>
+                <div class="col-xs-12"><span class="nor">收货地址&nbsp;&nbsp;</span><span class="val">{{order.issueAddress}}</span></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

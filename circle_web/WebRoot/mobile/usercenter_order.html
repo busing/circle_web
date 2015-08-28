@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html ng-app="app" ng-controller="BusinessCtrl">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-title" content="团农">
+    <link rel="apple-touch-icon" href="../images/mobile/icon.jpg" />
+    <title></title>
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/mobile.css" rel="stylesheet" />
+    <script src="../js/common/jquery-1.7.2.min.js"></script>
+    <script src="../js/common/comm.js"></script>
+    <script src="../js/common/common.js"></script>
+    <script src="../js/common/angular.min.js"></script>
+    <script src="../js/mobile/usercenter_order.js"></script>
+
+</head>
+<body>
+    <div class="container-fluid cont">
+        <div class="row uc_head">
+            <div class="col-xs-3">
+            </div>
+            <div class="col-xs-9 my">
+                <a href="#">
+                    <img src="../images/mobile/temp_11.jpg" /></a>
+                <div class="info">
+                    <p class="p1">我的农场</p>
+                    <p class="p2"><i class="loc"></i>烽火科技大厦</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="row uc_tab">
+            <div class="col-xs-6 t1">
+                <div class="t1_item ">
+                    <p>收货地址</p>
+                </div>
+            </div>
+            <div class="col-xs-6 t2">
+                <div class="t2_item selected">
+                    <p>我的订单</p>
+                </div>
+            </div>
+        </div>
+        <div ng-repeat="order in orderList">
+        <div class="row order_item">
+            <div class="col-xs-12" ng-click="orderDetail(order.order_id)">
+                <div class="top">
+                    <span class="sp1">{{order.orderTime|date:'yyyy-MM-dd HH:mm:ss'}}</span>
+                    <span class="sp2">{{order.ship_status_str}}</span>
+                </div>
+                <div class="pro" ng-repeat="orderDetail in order.orderDetailList">
+                    <img src="{{'http://comefarm.com/' + orderDetail.image}}" />
+                    <a href="javascript:void(0)" class="info"></a>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="row totle">
+            <div class="col-xs-12">
+                	共{{orderList.length}}件商品&nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+    </div>
+</body>
+</html>

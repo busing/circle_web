@@ -1,0 +1,61 @@
+<project name="publish-build" default="copyjar" basedir=".">
+		<property name="project"     value="."/>
+		<property name="project.src"     value="src"/>
+		<property name="project.webroot"     value="WebRoot"/>
+		<property name="jarbuild.home"    value="build"/>
+		
+		<path id="compile.classpath">
+		   <fileset dir="${project.webroot}/WEB-INF/lib">
+	        <include name="**/*.jar"/>
+	      </fileset>
+				<fileset dir="/home/circle/apache-tomcat-7.0.57/lib">
+	        <include name="**/*.jar"/>
+	      </fileset>   
+		  <pathelement location="${jarbuild.home}.classes}"/>
+	  </path>
+		
+		<target name="prepare">
+	    <delete dir="${jarbuild.home}"/>
+	    <mkdir  dir="${jarbuild.home}"/>
+	    <mkdir  dir="${jarbuild.home}/classes"/>
+	  </target>
+			
+		<!-- compile -->
+		<target name="compile" depends="prepare" description="compile circle_web">
+	     	<javac srcdir="${project.src}" destdir="${jarbuild.home}/classes" encoding="UTF-8" debug="true" fork="true" memoryMaximumSize="512m" includeantruntime="on">
+	    	 	<classpath refid="compile.classpath"/>
+	    	</javac>
+	    	<copy todir="${jarbuild.home}/classes">
+			  	<fileset dir="${project.src}" >
+				    <exclude name="**/*.java"/>
+			  	</fileset>
+		  	</copy>
+  	</target>
+  	
+  	<!-- build resources -->
+  	<target name="webapp" depends="compile" description="create circle_web ">
+			<mkdir dir="${jarbuild.home}/resources"/>
+			<copy todir="${jarbuild.home}/resources/">
+	  	   		<fileset dir="${project.webroot}"/>
+	    	</copy>
+	    <copy todir="${jarbuild.home}/resources/WEB-INF/classes">
+	  	  <fileset dir="${jarbuild.home}/classes"/>
+	    </copy>
+	</target>
+  	
+  	<!-- build JAR -->
+	<target name="jar" depends="webapp" description="jar sj ">
+	 	<jar destfile="${jarbuild.home}/circle_web-1.0.0.jar" basedir="${jarbuild.home}/classes" includes="**/*.class"	/>
+	</target>
+
+
+	<!-- copy jar -->
+	<target name="copyjar"  depends="jar" description="copy jar">
+		<copy todir="${jarbuild.home}/resources/WEB-INF/lib" file="${jarbuild.home}/circle_web-1.0.0.jar"/>
+		<delete file="${jarbuild.home}/circle_web-1.0.0.jar"/>
+		<delete dir="${jarbuild.home}/resources/WEB-INF/classes"/>
+		<delete dir="${jarbuild.home}/classes"/>
+	</target>
+		
+		
+</project>

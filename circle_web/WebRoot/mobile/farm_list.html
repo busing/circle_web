@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html ng-app="app" ng-controller="BusinessCtrl">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="团农">
+    <link rel="apple-touch-icon" href="../images/mobile/icon.jpg" />
+    <title>团农场首页_{{circle.name}}</title>
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/mobile.css" rel="stylesheet" />
+    <script src="../js/common/jquery-1.7.2.min.js"></script>
+    <script src="../js/common/comm.js"></script>
+    <script src="../js/common/common.js"></script>
+    <script src="../js/common/angular.min.js"></script>
+    <script src="../js/mobile/farm_list.js"></script>
+    <script src="../js/mobile/head.js"></script>
+</head>
+<body>
+    <div class="container-fluid cont">
+        <div class="row head">
+            <div class="col-xs-2 msg">
+                <i></i>
+            </div>
+            <div class="col-xs-8 center">
+                <i class="loc"></i>
+                <span class="tit">团农</span>
+                <i class="arrow"></i>
+            </div>
+            <div class="col-xs-2 user">
+                <i></i>
+            </div>
+        </div>
+        <div class="row content">
+            <div class="col-xs-12 top">
+                <div class="row">
+                    <p class="col-xs-12 p1"  ng-click="addToShopCart()">
+                        <i class="code"></i>{{circle.name}}
+                    </p>
+                    <!--使用hidden类切换要显示的模块-->
+                    <div class="mask hidden"></div>
+                    <div class="pop big_code hidden" style="width: 155px; height: 155px; margin-left: -78px;">
+                        <img src="../images/mobile/code.jpg" style="width: 135px; height: 135px;" />
+                    </div>
+                    <p class="col-xs-12 p2"><span class="nor">货物发放时间：</span><span class="red">{{circle.issueTime}}</span></p>
+                    <p class="col-xs-12 p2"><span class="nor">货物发放地点：</span><span class="red">{{circle.issueAddress}}</span></p>
+                    <p class="col-xs-12 p2"><span class="nor">离特卖结束还有：</span><span class="red">{{day}}天{{hour}}时{{minute}}分{{second}}秒</span></p>
+                </div>
+            </div>
+            <div class="col-xs-12 frame_products">
+                <div class="goodList"  ng-repeat="good in goodList">
+                <input type="hidden" name="goodId" value="{{good.id}}" />
+                <div class="row item">
+                    <div class="col-xs-12">
+                        <div class="img">
+                            <a href="#">
+                                <img src="{{good.image}}" width="77" height="75" /></a>
+                        </div>
+                         <div class="info">
+                            <p class="p1"><a href="#">{{good.good_name}}</a></p>
+                            <p class="p2"><span class="nor">价格：</span><span class="red"><strong>{{good.sell_price}}</strong>元/{{good.unit_str}}</span></p>
+                            <p class="p3">市场价：<strong>{{good.original_price}}</strong>元/{{good.unit_str}}</p>
+                        </div>
+                        <div class="arrow" ng-click="showDetail($event)"></div>
+                        <div class="add">
+                            <a href="#"><i class="num_add_b hidden"></i></a>
+                            <i class="num_add" ng-click="addNum($event,$index,good.sell_price)"></i>
+                            <i class="num_cut" ng-click="minusNum($event,$index,good.sell_price)"></i>
+                        </div>
+                        <div class="num goodnum"></div>
+                    </div>
+                </div>
+                <div class="row item_content hidden" >
+                    <div class="col-xs-12">
+                        <p style="font-size: 14px; font-family: 'Adobe Arabic';">商品详情</p>
+                        <span ng-bind-html="good.description|htmlFilter "></span>
+                    </div>
+                </div>
+                </div>
+                <div class="bottom"></div>
+            </div>
+        </div>
+        <div class="row cart">
+            <div class="col-xs-8 left">
+                <div class="to_cart">
+                    <a href="#"></a>
+                    <b class="">{{cartNum}}</b>
+                    <!--使用hidden类切换要显示的模块-->
+                </div>
+                <div class="info ">
+                    <p><span class="nor">共</span><span class="money">￥{{totalPrice|number:2 }}</span></p>
+                    <p><span class="nor">免运费，闪电送</span></p>
+                </div>
+                <!--使用hidden类切换要显示的模块-->
+                <div class="info nocart hidden">
+                    <p><span class="nor">购物车是空的</span></p>
+                </div>
+            </div>
+            <!--使用hidden类切换要显示的模块-->
+            <div class="col-xs-4 right ">
+                <a href="javascript:void(0);" class="buy" ng-click="addToShopCart()">选好了</a>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    	 $(function () {
+	    	 $(".code").bind("touchstart", function () {
+	                $(".mask,.pop").removeClass("hidden");
+	         });
+	         $(".pop").bind("touchstart", function () {
+	             $(".mask,.pop").addClass("hidden");
+	         });
+         });
+    </script>
+</body>
+</html>

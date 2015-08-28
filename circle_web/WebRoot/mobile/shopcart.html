@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html ng-app="app" ng-controller="BusinessCtrl">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-title" content="团农">
+    <link rel="apple-touch-icon" href="../images/mobile/icon.jpg" />
+    <title>团农_订单确认</title>
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/mobile.css" rel="stylesheet" />
+    <script src="../js/common/jquery-1.7.2.min.js"></script>
+    <script src="../js/common/comm.js"></script>
+    <script src="../js/common/common.js"></script>
+    <script src="../js/common/angular.min.js"></script>
+    <script src="../js/mobile/shopcart.js"></script>
+
+</head>
+<body>
+    <div class="container-fluid cont">
+        <div class="shopcart">
+            <div class="tip"><i class="loc"></i>收件地址</div>
+            <div class="address row">
+                <p>{{user.name}}&nbsp;&nbsp;&nbsp;&nbsp;{{user.mobilePhone}}</p>
+                <p>{{circle.issueAddress}}</p>
+            </div>
+            <div class="tip"><i class="loc"></i>支付方式</div>
+            <div class="paymethod row">
+                <p class="col-xs-12">
+                    <input type="radio" name="payType" value="6001" checked="checked"  />货到付款</p>
+                <p class="col-xs-12">
+                    <input type="radio" disabled="disabled" name="payType" value="6002" />微信支付</p>
+            </div>
+            <div class="cart_pro" ng-repeat="good in myShopcart">
+            	<input type="hidden" name="goodId" value="{{good.id}}" />
+                <div class="row pro">
+                    <div class="col-xs-4 img">
+                        <a href="#">
+                            <img src="{{good.image}}" /></a>
+                    </div>
+                    <div class="col-xs-6 name">
+                        <p>{{good.good_name}}</p>
+                    </div>
+                    <div class="col-xs-2 price">
+                        <p class="p1">￥{{good.sell_price}}</p>
+                        <p class="p2">x{{good.buy_num}}</p>
+                    </div>
+                </div>
+                <div class="row num">
+                    <div class="col-xs-6 tip">
+                      	  购买数量
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="num_sel row">
+                            <div class="col-xs-3 l" ng-click="minusNum($event,$index,good.sell_price)">-</div>
+                            <div class="col-xs-5 m">{{good.buy_num}}</div>
+                            <div class="col-xs-3 r" ng-click="addNum($event,$index,good.sell_price)">+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom"></div>
+        </div>
+        
+        <div class="shopcart_foot row">
+            <div class="row">
+                <div class="col-xs-9 l">
+                    <span class="nor">合计</span>&nbsp;&nbsp;<span class="money">￥{{totalPrice|number:2}}</span>
+                </div>
+                <div class="col-xs-3 r">
+                    <a href="javascript:void(0);" ng-click="order()" class="sure">确认</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

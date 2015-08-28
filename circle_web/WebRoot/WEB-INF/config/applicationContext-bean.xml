@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans  
+	xmlns="http://www.springframework.org/schema/beans"  
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"    
+	xmlns:mvc="http://www.springframework.org/schema/mvc"    
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<!-- 默认的注解映射的支持 -->
+	<mvc:annotation-driven/>
+	<!-- 自动扫描的包名 -->
+	<context:component-scan base-package="com.circle.*"/>
+	<context:component-scan base-package="com.xwtec.xwserver.controller"/>
+	<context:component-scan base-package="com.xwtec.xwserver.dao"/>
+	<context:component-scan base-package="com.xwtec.xwserver.service"/>
+	<!-- 载入properties文件 -->
+	<bean id="propertiesBean" class="com.xwtec.xwserver.util.ProUtil">
+		<property name="locations">
+			<list>
+				<value>/WEB-INF/properties/database.properties</value>
+				<value>/WEB-INF/properties/config.properties</value>
+				<value>/WEB-INF/properties/redis.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- exception interceptor add by liutao -->
+	<bean class="com.xwtec.xwserver.controller.interceptor.ExceptionInterceptor"></bean>
+	
+	<!-- redis config params add by houxu -->
+	<bean id="jedisConfig" class="redis.clients.jedis.JedisPoolConfig"> 
+		<property name="testWhileIdle" value="true"/> 
+		<property name="maxActive" value="${redis.pool.maxActive}" />
+		<property name="maxIdle" value="${redis.pool.maxIdle}" />
+		<property name="maxWait" value="${redis.pool.maxWait}" />
+		<property name="testOnBorrow" value="${redis.pool.testOnBorrow}" />
+		<property name="testOnReturn" value="${redis.pool.testOnReturn}" />
+	</bean>
+	
+	<!-- redis Pool params add by houxu -->
+	<bean id="jedisPool" class="redis.clients.jedis.JedisPool" destroy-method="destroy"> 
+		<constructor-arg ref="jedisConfig" />
+		<constructor-arg value="${redis.ip}" />
+		<constructor-arg type="int" value="${redis.port}" />
+	</bean>
+	
+	<!-- redis tools class add by houxu -->
+	<bean id="jedisUtil" class="com.xwtec.xwserver.util.jedis.JedisUtil"> 
+	</bean>
+</beans>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration debug="false"
+						xmlns:log4j="http://jakarta.apache.org/log4j/">
+	
+	<appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-4r [%t] %-5p %c %x - %m%n"/>
+		</layout>
+	</appender>
+	
+	<!-- 配置程序启动时的日志输出，将所有日志输出到控制台 -->
+	<!--<appender name="STDOUT" class="com.cplatform.log.DatedFileAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{yyyy-MM-dd HH:mm:ss} %5p: %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="DEBUG" />
+			<param name="LevelMax" value="FATAL" />
+		</filter>
+	</appender>-->
+
+	<!-- 配置程序调试时的日志输出，输出到文件，并且文件按天存放 -->
+	<appender name="DEBUG"
+		class="com.xwtec.xwserver.util.DatedFileAppender">
+		<!-- 调试日志文件存放在log/debug目录下 -->
+		<param name="File" value="log/%yyyy%mm/%dd/debug.log" />
+		<!-- 重启后追加到旧文件 -->
+		<param name="Append" value="true" />
+		<!-- 按天分割文件 -->
+		<!--  param name="DatePattern" value=".yyyy-MM-dd" /-->
+		<!-- 配置日志格式 -->
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%c %d -- %p -- %m%n" />
+		</layout>
+		<!-- 配置过滤器，此文件只输出DEBUG信息 -->
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="DEBUG" />
+			<param name="LevelMax" value="DEBUG" />
+		</filter>
+	</appender>
+
+	<!-- 配置程序运行时的日志输出，输出到文件，并且文件按天存放 -->
+	<appender name="INFO"
+		class="com.xwtec.xwserver.util.DatedFileAppender">
+		<!-- 事件日志文件存放在log/info目录下 -->
+		<param name="File" value="log/%yyyy%mm/%dd/info.log" />
+		<!-- 重启后追加到旧文件 -->
+		<param name="Append" value="true" />
+		<!-- 按天分割文件 -->
+		<!--  param name="DatePattern" value=".yyyy-MM-dd" /-->
+		<!-- 配置日志格式 -->
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%c %d -- %p -- %m%n" />
+		</layout>
+		<!-- 配置过滤器，此文件只输出INFO信息 -->
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+			<param name="LevelMax" value="INFO" />
+		</filter>
+	</appender>
+	
+	<!-- 配置程序运行时的日志输出，输出到文件，并且文件按天存放 -->
+	<appender name="WARN"
+		class="com.xwtec.xwserver.util.DatedFileAppender">
+		<!-- 事件日志文件存放在log/info目录下 -->
+		<param name="File" value="log/%yyyy%mm/%dd/warn.log" />
+		<!-- 重启后追加到旧文件 -->
+		<param name="Append" value="true" />
+		<!-- 按天分割文件 -->
+		<!--  param name="DatePattern" value=".yyyy-MM-dd" /-->
+		<!-- 配置日志格式 -->
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%c %d -- %p -- %m%n" />
+		</layout>
+		<!-- 配置过滤器，此文件只输出INFO信息 -->
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="WARN" />
+			<param name="LevelMax" value="WARN" />
+		</filter>
+	</appender>
+
+	<!-- 配置出现重量级的异常时的日志输出，输出到文件，并且文件按天存放 -->
+	<appender name="ERROR"
+		class="com.xwtec.xwserver.util.DatedFileAppender">
+		<!-- 错误日志文件存放在log/error目录下 -->
+		<param name="File" value="log/%yyyy%mm/%dd/error.log" />
+		<!-- 重启后追加到旧文件 -->
+		<param name="Append" value="true" />
+		<!-- 按天分割文件 -->
+		<!--  param name="DatePattern" value=".yyyy-MM-dd" /-->
+		<!-- 配置日志格式 -->
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd hh:mm:ss}:%p %c:%L - %m%n" />
+		</layout>
+		<!-- 配置过滤器，此文件只输出错误信息 -->
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="ERROR" />
+			<param name="LevelMax" value="ERROR" />
+		</filter>
+	</appender>
+	
+	<!-- 配置出现灾难性的异常时的日志输出，输出到文件，并且文件按天存放 -->
+	<appender name="FATAL"
+		class="com.xwtec.xwserver.util.DatedFileAppender">
+		<!-- 错误日志文件存放在log/fatal目录下 -->
+		<param name="File" value="log/%yyyy%mm/%dd/fatal.log" />
+		<!-- 重启后追加到旧文件 -->
+		<param name="Append" value="true" />
+		<!-- 按天分割文件 -->
+		<!--  param name="DatePattern" value=".yyyy-MM-dd" /-->
+		<!-- 配置日志格式 -->
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%c %d -- %p -- %m%n" />
+		</layout>
+		<!-- 配置过滤器，此文件只输出灾难信息 -->
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="FATAL" />
+			<param name="LevelMax" value="FATAL" />
+		</filter>
+	</appender>
+	
+	<root>
+		<level value ="ERROR"/>
+		<appender-ref ref="STDOUT"/>
+		<appender-ref ref="DEBUG"/>
+		<appender-ref ref="ERROR"/>
+		<appender-ref ref="INFO"/>
+		<appender-ref ref="WARN"/>
+		<appender-ref ref="FATAL"/>
+	</root>
+	
+</log4j:configuration>

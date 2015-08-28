@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html ng-app="app" ng-controller="BusinessCtrl">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-title" content="团农">
+    <link rel="apple-touch-icon" href="../images/mobile/icon.jpg" />
+    <title></title>
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/mobile.css" rel="stylesheet" />
+    <script src="../js/common/jquery-1.7.2.min.js"></script>
+    <script src="../js/common/comm.js"></script>
+    <script src="../js/common/common.js"></script>
+    <script src="../js/common/angular.min.js"></script>
+    <script src="../js/mobile/order_success.js"></script>
+
+</head>
+<body>
+    <div class="container-fluid cont">
+        <div class="order_succ">
+            <div class="tip">
+                <div class="success">下单成功</div>
+            </div>
+            <div class="info">
+                <p class="p1">收件人：{{order.receiveName}}   {{order.receivePhone}}</p>
+                <p class="p2">收货地址：{{order.issueAddress}}</p>
+            </div>
+            <div class="total">
+                <span class="nor">实际付款：</span><span class="red">￥{{order.orderAmount}}</span>
+            </div>
+            <div class="row btns">
+                <div class="col-xs-4 col-xs-offset-2">
+                    <button class="btn1" ng-click="orderDetail()">订单详情</button>
+                </div>
+                <div class="col-xs-4">
+                    <button class="btn1" ng-click="index()">返回首页</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
